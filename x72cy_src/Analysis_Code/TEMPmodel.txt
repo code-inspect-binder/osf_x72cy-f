@@ -1,0 +1,13 @@
+
+  model {
+  for ( i in 1:Ntotal ) {
+  y[i] ~ dbern( theta[s[i]] )
+  }
+  for ( sIdx in 1:Nsubj ) {
+  theta[sIdx] ~ dbeta( omega*(kappa-2)+1 , (1-omega)*(kappa-2)+1 ) 
+  }
+  omega ~ dbeta( a , b ) 
+  kappa <- kappaMinusTwo + 2
+  kappaMinusTwo ~ dgamma( 0.01 , 0.01 )  # mean=1 , sd=10 (generic vague)
+  }
+  
